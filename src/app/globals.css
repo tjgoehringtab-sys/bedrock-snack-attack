@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+@theme {
+  /* Bedrock orange, pushed a little brighter for snack energy */
+  --color-brand: #f7931e;
+  --color-brand-deep: #a85300;
+  --color-brand-soft: #ffe2bd;
+  /* Bedrock's charcoal, warmed up */
+  --color-ink: #2b2520;
+  --color-ink-soft: #6b5f55;
+  --color-page: #fff6e8;
+  --color-paper: #ffffff;
+  --color-line: #ecdcc4;
+  --color-cart: #2f9e5b;
+
+  --font-sans: var(--font-bricolage), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --shadow-sticker: 3px 3px 0 0 #2b2520;
+  --shadow-sticker-lg: 5px 5px 0 0 #2b2520;
+
+  --animate-pop-in: pop-in 0.42s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+  --animate-slide-up: slide-up 0.32s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+  --animate-chomp: chomp 0.32s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+  --animate-wiggle: wiggle 0.5s ease-in-out;
+
+  @keyframes pop-in {
+    0% { opacity: 0; transform: scale(0.6) rotate(-6deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0); }
+  }
+  @keyframes slide-up {
+    0% { opacity: 0; transform: translateY(14px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes chomp {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-page);
+    color: var(--color-ink);
+    font-feature-settings: "ss01";
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 10px;
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+  /* iOS zooms into inputs under 16px; keep them at 17px+ */
+  input,
+  select,
+  textarea {
+    font-size: 17px;
+  }
+}
+
+@layer components {
+  /* The big stacked title type */
+  .display {
+    font-weight: 800;
+    font-stretch: 78%;
+    letter-spacing: -0.02em;
+    line-height: 0.86;
+  }
+  .heading {
+    font-weight: 750;
+    font-stretch: 86%;
+    letter-spacing: -0.01em;
+    line-height: 1.02;
+  }
+  .sticker {
+    border: 2.5px solid var(--color-ink);
+    box-shadow: var(--shadow-sticker);
+  }
+  .press {
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+  .press:active:not(:disabled) {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 0 var(--color-ink);
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Torn-receipt edges for the shopping list */
+  .receipt {
+    --tooth: 10px;
+    background: var(--color-paper);
+    -webkit-mask:
+      conic-gradient(from -45deg at bottom, #0000, #000 1deg 90deg, #0000 91deg) bottom / calc(var(--tooth) * 2) var(--tooth) repeat-x,
+      conic-gradient(from 135deg at top, #0000, #000 1deg 90deg, #0000 91deg) top / calc(var(--tooth) * 2) var(--tooth) repeat-x,
+      linear-gradient(#000 0 0) center / 100% calc(100% - var(--tooth) * 2) no-repeat;
+    mask:
+      conic-gradient(from -45deg at bottom, #0000, #000 1deg 90deg, #0000 91deg) bottom / calc(var(--tooth) * 2) var(--tooth) repeat-x,
+      conic-gradient(from 135deg at top, #0000, #000 1deg 90deg, #0000 91deg) top / calc(var(--tooth) * 2) var(--tooth) repeat-x,
+      linear-gradient(#000 0 0) center / 100% calc(100% - var(--tooth) * 2) no-repeat;
+    filter: drop-shadow(0 2px 0 rgba(43, 37, 32, 0.08));
+  }
+  /* Emoji confetti */
+  .burst-particle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 80;
+    font-size: 26px;
+    line-height: 1;
+    animation: burst 0.95s cubic-bezier(0.15, 0.7, 0.3, 1) forwards;
+  }
+}
+
+@keyframes burst {
+  0% { transform: translate(-50%, -50%) scale(0.4) rotate(0); opacity: 1; }
+  70% { opacity: 1; }
+  100% {
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.1) rotate(var(--rot));
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .burst-particle {
+    display: none;
+  }
+}
