@@ -57,10 +57,9 @@ export function TopBar() {
   return (
     <header className="mx-auto flex max-w-3xl items-center justify-between gap-3 px-4 pb-1 pt-[max(14px,env(safe-area-inset-top))]">
       <Link href={me ? "/snacks" : "/"} className="heading flex items-center gap-1.5 text-[17px] text-ink">
-        <span aria-hidden className="grid h-8 w-8 place-items-center rounded-full bg-brand text-[17px] sticker !shadow-none">
-          🍿
-        </span>
-        Snack Attack
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/bedrock-logo.png" alt="" width={24} height={28} className="h-7 w-auto" />
+        Snack Attack 🍿
       </Link>
       {me ? (
         <div className="flex items-center gap-2.5">

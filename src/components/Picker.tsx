@@ -41,7 +41,11 @@ export function Picker() {
       <section className="relative overflow-hidden bg-brand px-5 pb-16 pt-[max(28px,env(safe-area-inset-top))] text-ink">
         <div className="mx-auto max-w-3xl">
           <div className="flex flex-wrap items-center justify-between gap-2 text-[14.5px] font-semibold">
-            <span>{SITE.church}</span>
+            <span className="flex items-center gap-2.5">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/bedrock-logo.png" alt="Bedrock Church" width={29} height={34} className="h-[34px] w-auto" />
+              {SITE.church}
+            </span>
             <Countdown />
           </div>
           <h1 className="display mt-6 text-[clamp(3.6rem,19vw,8.5rem)]" aria-label={`${SITE.title} 🍿`}>
@@ -62,7 +66,7 @@ export function Picker() {
       <section className="relative -mb-[calc(96px+env(safe-area-inset-bottom))] -mt-8 min-h-[55vh] rounded-t-[36px] bg-paper px-4 pb-[calc(120px+env(safe-area-inset-bottom))] pt-8">
         <div className="mx-auto max-w-3xl">
           <h2 className="heading text-center text-[clamp(2rem,8vw,2.6rem)]">Who&apos;s hungry?</h2>
-          <p className="mt-1.5 text-center text-[16.5px] text-ink-soft">Tap your photo. No passwords, no sign-up.</p>
+          <p className="mt-1.5 text-center text-[16.5px] text-ink-soft">Tap your photo.</p>
 
           <ul className="mt-7 grid grid-cols-3 gap-x-2 gap-y-6 sm:grid-cols-4 md:grid-cols-5">
             {staff.map((s, i) => {
